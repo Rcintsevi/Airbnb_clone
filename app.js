@@ -9,8 +9,25 @@ const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js");
 const ExpressError=require("./utils/ExpressError.js");
 const {listingSchema, reviewSchema}=require("./schema.js");
-const listing=require("./routes/listing.js");
-const review=require("./routes/review.js");
+const listingRouter=require("./routes/listing.js");
+const reviewRouter=require("./routes/review.js");
+const userRouter=require("./routes/user.js");
+const flash=require("connect-flash");
+const session=require("express-session");
+const sessionOptions={
+    secret:"mysecretcode",
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        expires:Date.now()+7*24*60*60*1000,
+        maxAge:7*24*60*60*1000,
+        httpOnly:true
+    }
+};
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User=require("./models/user.js");
+
 
 
 
@@ -58,12 +75,50 @@ app.get("/",(req,res)=>{
 
 
 
+//Setting connect-flash middleware
+app.use(flash());
+//Setting express-session middleware
+app.use(session(sessionOptions));
+
+
+//Passport configurations
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));//To use static authenticate model of our strategy
+passport.serializeUser(User.serializeUser());// Takes full user object and decides what needs to be stored in session
+passport.deserializeUser(User.deserializeUser());// takes session ID and fetches the full user stored through (ie,using what) what is stored by serialize
+
+//Using connect-flash
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    res.locals.currUser=req.user;
+    next();
+});
+
+
+
+
+// app.get("/demouser", async (req,res)=>{
+//     let fakeUser=new User({
+//         email:"student@gmail.com",
+//         username:"student"
+//     });
+//     let registeredUser=await User.register(fakeUser,"secret");
+//     res.send(registeredUser);
+// });
+
 
 //Using Express Routers..this calls all the routes to go to lisitng.js
-app.use("/listings",listing);
+app.use("/listings",listingRouter);
 
 //This would call all the review related routes
-app.use("/listings/:id/reviews",review);
+app.use("/listings/:id/reviews",reviewRouter);
+
+//all requets related to user
+app.use("/",userRouter);
+
+
 
 
 //Error handling middleware

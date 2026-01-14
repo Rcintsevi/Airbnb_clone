@@ -22,6 +22,7 @@ main()
 //To clean databse
 let initDB=async ()=>{
     await Listing.deleteMany({});
+    initData.data=initData.data.map((obj)=>({...obj,owner:'69654958f2421acec3464c14'}));
     await Listing.insertMany(initData.data);
     console.log("Data was initialsed");
 
