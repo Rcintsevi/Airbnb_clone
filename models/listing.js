@@ -12,10 +12,10 @@ const listingSchema= new Schema({
         type:String
     },
     image:{
-        type:String,
-        set: (v)=>v===""?"https://unsplash.com/photos/sunlight-illuminates-dramatic-sandstone-cliffs-under-a-blue-sky-e02TiydyhY4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink":v,
-        default:"https://unsplash.com/photos/sunlight-illuminates-dramatic-sandstone-cliffs-under-a-blue-sky-e02TiydyhY4?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink"
+        url:String,
+        filename:String
     },
+        
     price:{
         type:Number
     },
@@ -32,7 +32,19 @@ const listingSchema= new Schema({
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
+    },
+    geometry:{
+    type: {
+      type: String, 
+      enum: ['Point'], 
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
     }
+  }
+
     
 });
 

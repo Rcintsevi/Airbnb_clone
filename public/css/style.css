@@ -1,9 +1,9 @@
 .navbar{
-    height:5 rem;
+    height:5rem;
 }
 .fa-compass{
     color:#fe424d;
-    font-size:2 rem;
+    font-size:2rem;
 
 }
 .nav-link{
@@ -22,11 +22,11 @@
 
 .f-info-socials{
     width:100%;
-    font-size:1.5 rem;
+    font-size:1.5rem;
 }
 .f-info-socials i{
-    margin-right: 1 rem;
-    font-size:1.5 rem;
+    margin-right: 1rem;
+    font-size:1.5rem;
 }
 .f-info-links{
     width:100%;
@@ -34,7 +34,7 @@
 
 .f-info{
     text-align:center;
-    height:8 rem;
+    height: 8rem;
     background-color:#ebebeb;
     display:flex;
     flex-wrap: wrap;
@@ -90,7 +90,7 @@ body{
 
 /* Show.ejs styling */
 .show-img{
-    height:30hv;
+    height:30vh;
 }
 .btns{
     display:flex;
@@ -98,4 +98,20 @@ body{
 .show-card{
     padding-left:0;
     padding-right:0;
+}
+
+/* To add maps */
+
+.map-wrapper{
+    display:flex;
+    justify-content:center;
+    text-align:center;
+}
+#map{
+    height:600px;
+    width:700px;
+    margin:2rem auto;
+    
+    
+
 }

@@ -9,7 +9,7 @@ module.exports.signupForm=async (req,res)=>{
 module.exports.userSignin=async (req,res,next)=>{
     try{
         let {username,email,password}=req.body;
-    let user1=new User({
+        let user1=new User({
         username:username,
         email:email,
     });
@@ -43,7 +43,6 @@ module.exports.userLogin=async (req,res)=>{
     console.log(res.locals.redirectURL);
     const redirectUrl=res.locals.redirectURL || "/listings";
     res.redirect(redirectUrl);
-
 }
 
 module.exports.userLogout=(req,res,next)=>{

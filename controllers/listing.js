@@ -1,4 +1,5 @@
 const Listing=require("../models/listing.js");
+const geocodeLocation=require("../utils/geocode.js");
 
 
 module.exports.index=async (req,res,next)=>{
@@ -19,17 +20,21 @@ module.exports.showListing=async (req,res,next)=>{
         req.flash("error","The listing does not exists");
         return res.redirect("/listings");
     }
-    // console.log(listing);
-    // console.log(req.user);
+    const location=listing.location;
+    const coords = await geocodeLocation(location);
+    
 
 
-    res.render("listings/show.ejs",{listing});
+    res.render("listings/show.ejs",{listing,lat:coords.lat,lng:coords.lng});
 }
 
 module.exports.editForm=async (req,res,next)=>{
     let id=req.params.id;
     let listing=await Listing.findById(id);
-    res.render("listings/edit.ejs",{listing});
+    let originalImageURL=listing.image.url;
+    originalImageURL=originalImageURL.replace("/upload","/upload/w_250,h_300");
+
+    res.render("listings/edit.ejs",{listing,originalImageURL});
 
 }
 
@@ -39,6 +44,26 @@ module.exports.editListing=async (req,res,next)=>{
         throw new ExpressError(400,"Send valid data for listing");
     }
     let newListing=await Listing.findByIdAndUpdate(id,{...req.body.listing});
+
+    if(req.file){
+        let url=req.file.path;
+        let filename=req.file.filename;
+        newListing.image={url,filename};
+        newListing.save();
+    }
+
+
+    const location=newListing.location;
+    const coords = await geocodeLocation(location);
+    newListing.geometry = {
+    type: "Point",
+    coordinates: [
+      parseFloat(coords.lng), 
+      parseFloat(coords.lat)  
+    ]
+  };
+    newListing.save();
+    
     req.flash("success","listing updated");
     
     res.redirect(`/listings/${id}`);
@@ -53,11 +78,26 @@ module.exports.destroy=async (req,res,next)=>{
 
 module.exports.createListing=async (req,res,next)=>{
     
+    let url=req.file.path;
+    let filename=req.file.filename;
     //new method
     let listing=req.body.listing;
     
+
+    
     const newListing=new Listing(listing);
     newListing.owner=req.user._id;
+    newListing.image={url,filename};
+    const location=listing.location;
+    const coords = await geocodeLocation(location);
+    
+    newListing.geometry = {
+    type: "Point",
+    coordinates: [
+      parseFloat(coords.lng), 
+      parseFloat(coords.lat)  
+    ]
+  };
     req.flash("success","New Listing created!");
     await newListing.save();
     res.redirect("/listings");

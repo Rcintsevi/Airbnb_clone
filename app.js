@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV!="production"){
+    require('dotenv').config();
+}
+
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
@@ -68,9 +72,7 @@ main()
     console.log("Some error in connection");
 });
 
-app.get("/",(req,res)=>{
-    res.send("Home page");
-});
+
 
 
 

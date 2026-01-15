@@ -9,30 +9,44 @@ const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const {isLoggedIn,isOwner,validateListing}=require("../middleware.js");
 const listingController=require("../controllers/listing.js");
+const multer  = require('multer');
+const {storage}=require("../cloudConfig.js");
+const upload = multer({storage});
+const {geocodeLocation}=require("../utils/geocode.js");
 
 
 
+//To get more modularity we use router.route()
+//It will combine similar paths with different verbs
 
-//Index Route(Only shows title)
-router.get("/",wrapAsync(listingController.index));
+
+router.route("/")
+.get(wrapAsync(listingController.index))//Index route
+.post(isLoggedIn,validateListing,upload.single("listing[image]"),wrapAsync(listingController.createListing))//Create route
+;
 
 //New route (have this before show route or else new would be treated as :id)
 router.get("/new",isLoggedIn,listingController.newForm);
 
-//Create Route
-router.post("/",isLoggedIn,validateListing,wrapAsync(listingController.createListing));
 
 
-//Show route
-router.get("/:id",wrapAsync(listingController.showListing));
+router.route("/:id")
+.get(wrapAsync(listingController.showListing))//Show route
+.patch(isLoggedIn,isOwner,upload.single("listing[image]"),wrapAsync(listingController.editListing))//Update route
+.delete(isLoggedIn,wrapAsync(listingController.destroy))//Delete route
+;
+
+
+
+
+
+
+
 
 //Update route
 //Serving the form
 router.get("/:id/edit",isLoggedIn,validateListing,wrapAsync(listingController.editForm));
 
-router.patch("/:id",isLoggedIn,isOwner,wrapAsync(listingController.editListing));
 
-//Destroy Route
-router.delete("/:id",isLoggedIn,wrapAsync(listingController.destroy));
 
 module.exports=router;
