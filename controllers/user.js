@@ -19,7 +19,7 @@ module.exports.userSignin=async (req,res,next)=>{
         if(err){
             next(err);
         }
-        console.log(registeredUser);
+        
         req.flash("success","A new user was succesfully registered");
         res.redirect("/listings");
     });
@@ -40,7 +40,7 @@ module.exports.loginForm=(req,res)=>{
 
 module.exports.userLogin=async (req,res)=>{
     req.flash("success","Welcome to Airbnb, you are logged in");
-    console.log(res.locals.redirectURL);
+    // console.log(res.locals.redirectURL);
     const redirectUrl=res.locals.redirectURL || "/listings";
     res.redirect(redirectUrl);
 }

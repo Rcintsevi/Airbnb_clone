@@ -18,7 +18,27 @@ const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
 const flash=require("connect-flash");
 const session=require("express-session");
+const MongoStore = require('connect-mongo').default;
+
+
+const dbUrl=process.env.ATLASDB_URL;
+//To set up sesssion store using Connect-mongo
+const store=MongoStore.create({
+    mongoUrl:dbUrl,
+    crypto:{
+        secret:"mysecretcode"
+    },
+    touchAfter:24*3600                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+
+
+});
+store.on("error", ()=>{
+    console.log("Sonme error occured in mongo-session");
+});
+
+
 const sessionOptions={
+    store,
     secret:"mysecretcode",
     resave:false,
     saveUninitialized:true,
@@ -28,6 +48,8 @@ const sessionOptions={
         httpOnly:true
     }
 };
+
+
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
@@ -59,9 +81,11 @@ app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
 
 
+
+
 //connection with mongoose database
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/airbnb");
+    await mongoose.connect(dbUrl);
 }
 
 main()
@@ -71,6 +95,7 @@ main()
 .catch((err)=>{
     console.log("Some error in connection");
 });
+
 
 
 
