@@ -136,6 +136,11 @@ app.use((req,res,next)=>{
 // });
 
 
+app.get("/",(req,res)=>{
+    res.redirect("/listings");
+});
+
+
 //Using Express Routers..this calls all the routes to go to lisitng.js
 app.use("/listings",listingRouter);
 
