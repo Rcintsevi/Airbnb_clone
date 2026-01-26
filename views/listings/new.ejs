@@ -59,6 +59,30 @@
                     Enter valid Image 
                 </div>
             </div>
+
+            <div class="mb-3">
+                <label for="listing_type" class="form-label">Type of Listing</label>
+                <select required name="listing[listing_type]" id="listing_type" class="form-select" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="farms">Farms</option>
+                    <option value="rooms">Rooms</option>
+                    <option value="cities">Amazing Cities</option>
+                    <option value="trending">Trending</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="castles">Castles</option>
+                    <option value="pools">Pools</option>
+                    <option value="scenic">Scenic Views</option>
+                    <option value="camping">Camping</option>
+                    <option value="arctic">Arctic</option>
+                    <option value="luxe">Luxe</option>
+                </select>
+                <div class="valid-feedback">
+                    Looks good
+                </div>
+                <div class="invalid-feedback">
+                    Looks like you forget something
+                </div>
+            </div>
             
             <button class="btn  add-btn">Submit</button>
 

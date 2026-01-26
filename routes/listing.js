@@ -20,6 +20,13 @@ const {geocodeLocation}=require("../utils/geocode.js");
 //It will combine similar paths with different verbs
 
 
+router.get("/filter/:type",(req,res)=>{
+    let type=req.params.type;
+    res.send(`You want to look at all ${type} listings`);
+});
+
+
+
 router.route("/")
 .get(wrapAsync(listingController.index))//Index route
 .post(isLoggedIn,validateListing,upload.single("listing[image]"),wrapAsync(listingController.createListing))//Create route
@@ -46,6 +53,7 @@ router.route("/:id")
 //Update route
 //Serving the form
 router.get("/:id/edit",isLoggedIn,validateListing,wrapAsync(listingController.editForm));
+
 
 
 

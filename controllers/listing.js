@@ -3,8 +3,16 @@ const geocodeLocation=require("../utils/geocode.js");
 
 
 module.exports.index=async (req,res,next)=>{
-    let allListings= await Listing.find({});
-    res.render("listings/index.ejs",{allListings});
+    if(!req.query.type){
+        let allListings= await Listing.find({});
+        return res.render("listings/index.ejs",{allListings});
+    }
+    else{
+        let filterType=req.query.type;
+        let allListings=await Listing.find({listing_type:filterType});
+        return res.render("listings/index.ejs",{allListings});
+    }
+    
     
 }
 

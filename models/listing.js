@@ -43,7 +43,14 @@ const listingSchema= new Schema({
       type: [Number],
       required: true
     }
-  }
+    
+    
+
+  },
+  listing_type:{
+        type:String,
+        required:true
+    }
 
     
 });
