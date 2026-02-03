@@ -64,29 +64,30 @@ This project is built as a learning-oriented but production-deployed application
 
 ---
 
-### Installation
+## Installation
 
-# 1. Clone the repository:
+1. Clone the repository:
    ```bash
    git clone https://github.com/<your-username>/<repo-name>.git
    cd <repo-name>
    ```
 
-# 2. Install Dependencies:
-    ```bash
-    npm install 
-    ```
-### Run Project Locally
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-# 1. Start the app
-    ```bash
-    nodemon app.js
-    ```
+## Run Project Locally
 
-# 2. Open your browser
-    ```bash
-    visit http://localhost:8008
-    ```
+1. Start the app:
+   ```bash
+   nodemon app.js
+   ```
+
+2. Open your browser and visit:
+   ```
+   http://localhost:8080
+   ```
 
 
 
