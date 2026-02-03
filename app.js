@@ -33,7 +33,7 @@ const store=MongoStore.create({
 
 });
 store.on("error", ()=>{
-    console.log("Sonme error occured in mongo-session");
+    console.log("Some error occured in mongo-session");
 });
 
 
