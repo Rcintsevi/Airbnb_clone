@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+
+
+
+    
+    <a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" id="liveToastBtn">
+    <i class="fa-regular fa-compass"></i>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"></button>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -27,3 +33,23 @@
     </div>
   </div>
 </nav>
+<% if(currUser) { %>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Profile</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    
+    <div>
+      <p>Name: <%= currUser.username %></p>
+    </div>
+    <div>
+      <p>Email: <%= currUser.email %></p>
+    </div>
+    
+    
+  </div>
+</div>
+<% }%>
+

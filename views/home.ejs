@@ -1,29 +1,54 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
+<link rel="stylesheet" href="/css/home.css">
+
 <body>
-    <style>
-        div{
-            text-align:center;
-        }
-        .features{
-            text-align: justify;
-        }
-    </style>
-    <div>
-        <h1>Discover places worth staying</h1>
-        <p>Explore and list properties with location-based search and reviews.</p>
+   <section class="hero">
+    <div class="hero-content">
+        <h1>Explore verified rental spaces.<br />Host with confidence.</h1>
+        <p>
+            PinPlace lets travelers discover quality stays while helping hosts
+            manage and showcase their properties with ease.
+        </p>
 
-        <a href="/listings" class="btn add-btn">Explore Listings</a>
-        <a href="/listings/new" class="btn btn-outline-secondary">Create a Listing</a>
-
-
+        <div class="hero-actions">
+            <a href="/listings" class="h-btn h-btn-primary">Explore Listings</a>
+            <a href="/listings/new" class="h-btn h-btn-outline">Become a Host</a>
+        </div>
     </div>
-    <div class="features">
-        <div>🔐 Secure user authentication</div>
-        <div>📍 Location-based listings</div>
-        <div>🏠 Create & manage properties</div>
-        <div>💬 Reviews and ratings</div>
-</div>
 
+  <div class="hero-image">
+    <img src="https://cdn.mos.cms.futurecdn.net/xB677FJ8Q73sj5CFzqi3Wi.jpg">
     
+  </div>
+</section>
+
+<section class="features">
+  <h2>Why PinPlace?</h2>
+
+  <div class="feature-grid">
+    <div class="feature">
+      <h3>Verified Listings</h3>
+      <p>Quality-controlled properties you can trust.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Host Dashboard</h3>
+      <p>Manage listings, pricing, and availability easily.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Secure Platform</h3>
+      <p>Built with authentication and production-ready backend.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready to get started?</h2>
+  <p>Join PinPlace today — explore or list your property in minutes.</p>
+  <a href="/signup" class="h-btn h-btn-primary">Create Account</a>
+</section>
+
+   
 </body>
