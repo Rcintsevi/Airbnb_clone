@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'Airbnb_DEV',//To set up name of folder
     allowedFormats:["png","jpeg","jpg"],
-    public_id: (req, file) => 'computed-filename-using-request',
+    public_id: (req, file) => `listing_${Date.now()}`,
   },
 });
 
